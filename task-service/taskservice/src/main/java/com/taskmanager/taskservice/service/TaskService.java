@@ -21,6 +21,20 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
+    private static void patchTaskValues(TaskDto taskDto, TaskDetails taskDetails) {
+        Optional.ofNullable(taskDetails.getTitle()).ifPresent(taskDto::setTitle);
+        Optional.ofNullable(taskDetails.getDescription()).ifPresent(taskDto::setDescription);
+        Optional.ofNullable(taskDetails.getTaskStatus())
+                .ifPresent(taskStatus -> taskDto.setTaskStatus(TaskStatusDto.valueOf(taskStatus.getValue())));
+        Optional.ofNullable(taskDetails.getReporterId())
+                .ifPresent(reporterId -> taskDto.setReporterId(UUID.fromString(reporterId)));
+        Optional.ofNullable(taskDetails.getAssigneeId())
+                .ifPresent(assigneeId -> taskDto.setAssigneeId(UUID.fromString(assigneeId)));
+        Optional.ofNullable(taskDetails.getBoardId())
+                .ifPresent(boardId -> taskDto.setBoardId(UUID.fromString(boardId)));
+        taskDto.setUpdatedAt(OffsetDateTime.now());
+    }
+
     public UUID createTask(Task task) {
         TaskDto savedTask = taskRepository.save(TaskMapper.modelToTaskDto(task));
         return savedTask.getId();
@@ -31,8 +45,7 @@ public class TaskService {
         if (savedTask.isPresent()) {
             patchTaskValues(savedTask.get(), task);
             taskRepository.save(savedTask.get());
-        }
-        else {
+        } else {
             throw new RuntimeException("Task not found");
         }
     }
@@ -52,19 +65,5 @@ public class TaskService {
 
     public void deleteTask(UUID taskId) {
         taskRepository.deleteById(taskId);
-    }
-
-    private static void patchTaskValues(TaskDto taskDto, TaskDetails taskDetails) {
-        Optional.ofNullable(taskDetails.getTitle()).ifPresent(taskDto::setTitle);
-        Optional.ofNullable(taskDetails.getDescription()).ifPresent(taskDto::setDescription);
-        Optional.ofNullable(taskDetails.getTaskStatus())
-                .ifPresent(taskStatus -> taskDto.setTaskStatus(TaskStatusDto.valueOf(taskStatus.getValue())));
-        Optional.ofNullable(taskDetails.getReporterId())
-                .ifPresent(reporterId -> taskDto.setReporterId(UUID.fromString(reporterId)));
-        Optional.ofNullable(taskDetails.getAssigneeId())
-                .ifPresent(assigneeId -> taskDto.setAssigneeId(UUID.fromString(assigneeId)));
-        Optional.ofNullable(taskDetails.getBoardId())
-                .ifPresent(boardId -> taskDto.setBoardId(UUID.fromString(boardId)));
-        taskDto.setUpdatedAt(OffsetDateTime.now());
     }
 }
