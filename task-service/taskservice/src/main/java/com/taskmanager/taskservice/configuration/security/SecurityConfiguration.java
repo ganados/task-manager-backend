@@ -21,7 +21,9 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/h2-console/**",
                                 "/swagger-ui/**",
-                                "/v3/api-docs/**"
+                                "/v3/api-docs/**",
+                                "/task**",
+                                "task/**"
                         ).permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().denyAll()

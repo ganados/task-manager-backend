@@ -1,18 +1,16 @@
-package com.taskmanager.taskservice;
+package com.taskmanager.userservice;
 
+import com.taskmanager.userservice.configuration.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import({
-		Configuration.class
-})
-public class TaskserviceApplication {
+@Import(Configuration.class)
+public class UserServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TaskserviceApplication.class, args);
+		SpringApplication.run(UserServiceApplication.class, args);
 	}
 
 }

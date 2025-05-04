@@ -26,6 +26,7 @@ public class TaskDto {
     private TaskStatusDto taskStatus;
     private UUID reporterId;
     private UUID assigneeId;
+    private UUID boardId;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
 }

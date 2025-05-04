@@ -13,6 +13,7 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class UserService {
+
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
