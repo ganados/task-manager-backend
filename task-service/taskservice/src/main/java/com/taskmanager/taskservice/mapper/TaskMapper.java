@@ -13,6 +13,7 @@ import java.util.UUID;
 public class TaskMapper {
 
     public static TaskDto modelToTaskDto(Task task) {
+        OffsetDateTime now = OffsetDateTime.now();
         return TaskDto.builder()
                 .title(task.getTitle())
                 .description(task.getDescription())
@@ -20,8 +21,8 @@ public class TaskMapper {
                 .reporterId(UUID.fromString(task.getReporterId()))
                 .assigneeId(UUID.fromString(task.getAssigneeId()))
                 .boardId(UUID.fromString(task.getBoardId()))
-                .createdAt(OffsetDateTime.now())
-                .updatedAt(OffsetDateTime.now())
+                .createdAt(now)
+                .updatedAt(now)
                 .build();
     }
 
@@ -51,8 +52,8 @@ public class TaskMapper {
                 .reporterId(taskDto.getReporterId().toString())
                 .assigneeId(taskDto.getAssigneeId().toString())
                 .boardId(taskDto.getBoardId().toString())
-                .createdAt(OffsetDateTime.now())
-                .updatedAt(OffsetDateTime.now())
+                .createdAt(taskDto.getCreatedAt())
+                .updatedAt(taskDto.getUpdatedAt())
                 .build();
     }
 }

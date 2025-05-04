@@ -13,4 +13,5 @@ public interface TaskRepository extends JpaRepository<TaskDto, UUID> {
 
     Optional<TaskDto> findByTitle(String title);
     Optional<List<TaskDto>> findAllByAssigneeId(UUID assigneeId);
+    Optional<List<TaskDto>> findAllByBoardId(UUID boardId);
 }
