@@ -22,8 +22,8 @@ public class SecurityConfiguration {
                                 "/h2-console/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/task**",
-                                "task/**"
+                                "/task/**", // TODO: here and below: remove after development
+                                "/task"
                         ).permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().denyAll()

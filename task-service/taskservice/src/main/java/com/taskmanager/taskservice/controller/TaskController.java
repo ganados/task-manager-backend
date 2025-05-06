@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,17 +36,17 @@ public class TaskController {
     }
 
     @GetMapping("/{taskId}")
-    public ResponseEntity<TaskDetails> getTask(String taskId) {
+    public ResponseEntity<TaskDetails> getTask(@PathVariable String taskId) {
         return ResponseEntity.ok(taskService.getTask(UUID.fromString(taskId)));
     }
 
     @GetMapping("/{boardId}/tasks")
-    public ResponseEntity<List<TaskDetails>> getBoardTasks(String boardId) {
+    public ResponseEntity<List<TaskDetails>> getBoardTasks(@PathVariable String boardId) {
         return ResponseEntity.ok(taskService.getBoardTasks(UUID.fromString(boardId)));
     }
 
     @DeleteMapping("/{taskId}")
-    public ResponseEntity<String> deleteTask(String taskId) {
+    public ResponseEntity<String> deleteTask(@PathVariable String taskId) {
         taskService.deleteTask(UUID.fromString(taskId));
         return ResponseEntity.ok("Task " + taskId + " has been deleted.");
     }

@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: userservice
@@ -16,9 +19,13 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-server:
-  port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 
 logging:
   level:
     org.springframework.security: debug
+    feign: DEBUG
