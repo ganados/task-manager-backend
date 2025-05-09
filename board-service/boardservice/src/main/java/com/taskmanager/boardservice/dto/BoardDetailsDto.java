@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.UUID;
 
-    @Data
-    @Entity
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
+@Data
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BoardDetailsDto {
 
     @Id
