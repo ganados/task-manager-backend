@@ -22,6 +22,10 @@ public class SecurityConfiguration {
                                 "/h2-console/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
+                                "/admin/**",
+                                "/admin",
+                                "/error/**",
+                                "/error",
                                 "/tasks/**", // TODO: here and below: remove after development
                                 "/tasks"
                         ).permitAll()
