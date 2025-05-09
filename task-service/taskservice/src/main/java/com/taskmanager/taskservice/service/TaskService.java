@@ -13,7 +13,6 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -59,8 +58,8 @@ public class TaskService {
     public List<TaskDetails> getBoardTasks(UUID boardId) {
         Optional<List<TaskDto>> boardTasks = taskRepository.findAllByBoardId(boardId);
         return boardTasks.map(taskDtos -> taskDtos.stream()
-                .map(TaskMapper::dtoToTaskDetails)
-                .collect(Collectors.toList())).orElseGet(List::of);
+                        .map(TaskMapper::dtoToTaskDetails).toList())
+                .orElseGet(List::of);
     }
 
     public void deleteTask(UUID taskId) {

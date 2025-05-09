@@ -12,19 +12,12 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class AdminService {
 
     private final UserDetailsRepository userDetailsRepository;
 
-    public UserDetails getUserDetails(String userId) {
-        UserDetailsDto userDetailsDto = userDetailsRepository.findById(UUID.fromString(userId))
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return UserMapper.dtoToUserDetails(userDetailsDto);
-    }
-
-    public List<UserDetails> getUsersDetails(List<String> userIds) {
-        List<UserDetailsDto> userDetailsDtoList = userDetailsRepository
-                .findAllById(userIds.stream().map(UUID::fromString).toList());
+    public List<UserDetails> getUsers() {
+        List<UserDetailsDto> userDetailsDtoList = userDetailsRepository.findAll();
         return userDetailsDtoList.stream().map(UserMapper::dtoToUserDetails).toList();
     }
 }

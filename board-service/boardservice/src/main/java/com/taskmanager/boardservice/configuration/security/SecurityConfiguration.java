@@ -1,4 +1,4 @@
-package com.taskmanager.taskservice.configuration.security;
+package com.taskmanager.boardservice.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +22,8 @@ public class SecurityConfiguration {
                                 "/h2-console/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/tasks/**", // TODO: here and below: remove after development
-                                "/tasks"
+                                "/boards/**", // TODO: here and below: remove after development
+                                "/boards"
                         ).permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().denyAll()

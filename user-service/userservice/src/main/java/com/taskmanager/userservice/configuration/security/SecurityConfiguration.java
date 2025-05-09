@@ -23,7 +23,12 @@ public class SecurityConfiguration {
                                 "/h2-console/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/users/**"
+                                "/admin/**",
+                                "/admin",
+                                "/error/**",
+                                "/error",
+                                "/users/**",
+                                "/users"
                         ).permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().denyAll()

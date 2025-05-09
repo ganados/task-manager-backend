@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 @AllArgsConstructor
 public class TaskController {
 
@@ -27,6 +28,11 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<String> createTask(@RequestBody Task task) {
         return ResponseEntity.ok(taskService.createTask(task).toString());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TaskDetails>> getBoardTasks(@RequestParam String boardId) {
+        return ResponseEntity.ok(taskService.getBoardTasks(UUID.fromString(boardId)));
     }
 
     @PatchMapping
@@ -38,11 +44,6 @@ public class TaskController {
     @GetMapping("/{taskId}")
     public ResponseEntity<TaskDetails> getTask(@PathVariable String taskId) {
         return ResponseEntity.ok(taskService.getTask(UUID.fromString(taskId)));
-    }
-
-    @GetMapping("/{boardId}/tasks")
-    public ResponseEntity<List<TaskDetails>> getBoardTasks(@PathVariable String boardId) {
-        return ResponseEntity.ok(taskService.getBoardTasks(UUID.fromString(boardId)));
     }
 
     @DeleteMapping("/{taskId}")

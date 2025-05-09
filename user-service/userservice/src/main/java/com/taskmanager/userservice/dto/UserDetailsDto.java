@@ -15,12 +15,14 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserDetailsDto {
 
     @Id
-    @GeneratedValue(generator = "UUID")
     private UUID id;
     private String email;
-    private String password;
-}
+    private String name;
+    private String surname;
 
+
+
+}
