@@ -1,0 +1,54 @@
+server:
+    port: 8080
+
+spring:
+  application:
+    name: apigateway
+
+  cloud:
+    gateway:
+      discovery:
+          locator:
+            enabled: true
+            lower-case-service-id: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/users/**
+          filters:
+            - RewritePath=/api/users/(?<segment>.*), /users/${segment}
+            - JwtAuthenticationFilter
+        - id: board-service
+          uri: lb://board-service
+          predicates:
+            - Path=/boards/**
+          filters:
+            - RewritePath=/api/boards/(?<segment>.*), /boards/${segment}
+        - id: task-service
+          uri: lb://task-service
+          predicates:
+            - Path=/tasks/**
+          filters:
+            - RewritePath=/api/tasks/(?<segment>.*), /tasks/${segment}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+jwt:
+  secret: "f43b9a0607bfbeba26ed99843ce2e091b03fac02ab565203b8669e39aa3a62869b6e7843c0a96ac4456fa31b5a1c518aeb150a9e124e67835d0179cb675977bb1fbbe2dad9b24937353da54c0a96287f5ef74a413643c9ed7ae773d51e0e2b711c5c3404a4d1c7ebf9226238c1a3efc1036aed4de0d967e5547c4c2b61e93134"
+
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    urls:
+      - name: User Service
+        url: /user-service/v3/api-docs
+      - name: Board Service
+        url: /board-service/v3/api-docs
+      - name: Task Service
+        url: /task-service/v3/api-docs

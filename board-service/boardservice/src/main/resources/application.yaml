@@ -1,9 +1,9 @@
 server:
-  port: 8084
+  port: 8082
 
 spring:
   application:
-    name: boardservice
+    name: board-service
 
   datasource:
     url: jdbc:h2:mem:testdb

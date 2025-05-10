@@ -2,6 +2,7 @@ package com.taskmanager.taskservice.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,17 +20,13 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(headers -> headers
                         .requestMatchers(
-                                "/h2-console/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/admin/**",
-                                "/admin",
-                                "/error/**",
-                                "/error",
-                                "/tasks/**", // TODO: here and below: remove after development
-                                "/tasks"
+                                "/error/**"
                         ).permitAll()
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/tasks/**").authenticated()
                         .anyRequest().denyAll()
                 ).httpBasic(Customizer.withDefaults());
 
