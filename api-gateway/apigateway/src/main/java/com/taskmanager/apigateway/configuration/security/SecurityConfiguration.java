@@ -24,7 +24,7 @@ public class SecurityConfiguration {
                                 "/v3/api-docs/**",
                                 "error/**")
                         .permitAll()
-                        .anyExchange().authenticated()
+                        .anyExchange().permitAll()
                 )
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
                 .build();

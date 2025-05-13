@@ -17,20 +17,25 @@ spring:
           predicates:
             - Path=/users/**
           filters:
-            - RewritePath=/api/users/(?<segment>.*), /users/${segment}
-            - JwtAuthenticationFilter
+            - RewritePath=/users/(?<segment>.*), /users/${segment}
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<segment>.*), /auth/${segment}
         - id: board-service
           uri: lb://board-service
           predicates:
             - Path=/boards/**
           filters:
-            - RewritePath=/api/boards/(?<segment>.*), /boards/${segment}
+            - RewritePath=/boards/(?<segment>.*), /boards/${segment}
         - id: task-service
           uri: lb://task-service
           predicates:
             - Path=/tasks/**
           filters:
-            - RewritePath=/api/tasks/(?<segment>.*), /tasks/${segment}
+            - RewritePath=/tasks/(?<segment>.*), /tasks/${segment}
 
 eureka:
   client:
@@ -52,3 +57,14 @@ springdoc:
         url: /board-service/v3/api-docs
       - name: Task Service
         url: /task-service/v3/api-docs
+
+logging:
+  level:
+    org.springframework.security: debug
+    org.springframework.web: debug
+    org.springframework.cloud.gateway: debug
+    org.springframework.cloud.netflix.eureka: debug
+    org.springframework.cloud.loadbalancer: debug
+    org.springframework.cloud.gateway.filter: debug
+    org.springframework.cloud.gateway.route: debug
+    org.springframework.cloud.gateway.discovery: debug

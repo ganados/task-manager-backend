@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -16,6 +18,7 @@ import reactor.core.publisher.Mono;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 
+@Log4j2
 @Component
 public class JwtAuthenticationFilter implements GatewayFilter {
 
@@ -29,7 +32,7 @@ public class JwtAuthenticationFilter implements GatewayFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String authHeader = exchange.getRequest().getHeaders().getFirst(AUTHORIZATION_HEADER);
-
+        log.info("Auth header: {}", authHeader);
         if (authHeader == null || !authHeader.startsWith(BEARER_PREFIX)) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
@@ -45,6 +48,7 @@ public class JwtAuthenticationFilter implements GatewayFilter {
                     .getPayload();
 
             String userEmail = claims.getSubject();
+            log.info("User email: {}", userEmail);
             ServerHttpRequest request = exchange.getRequest().mutate()
                     .header(X_USER_EMAIL_HEADER, userEmail)
                     .build();
