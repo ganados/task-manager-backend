@@ -1,4 +1,4 @@
-package com.taskmanager.userservice.configuration.openapi;
+package com.taskmanager.taskservice.configuration.openapi;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -17,7 +17,7 @@ public class OpenApiConfiguration {
                 .info(new io.swagger.v3.oas.models.info.Info()
                         .title("User Service API")
                         .version("1.0.0")
-                        .description("API documentation for the User Service"))
+                        .description("API documentation for the Task Service"))
                 .addSecurityItem(new SecurityRequirement()
                         .addList(securitySchemeName))
                 .components(new Components()
